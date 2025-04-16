@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { Metadata } from 'next';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -16,6 +17,15 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+export const metadata: Metadata = {
+  title: 'ViveFlow - Transform Ideas into Actionable Frameworks',
+  description: 'ViveFlow helps you organize thoughts, create structured plans, and visualize your ideas in beautiful interactive mindmaps.',
+  icons: {
+    icon: '/images/logo.svg',
+    apple: '/images/logo.svg',
+  },
+};
 
 export default function RootLayout({
   children,

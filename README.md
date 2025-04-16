@@ -1,55 +1,83 @@
-# 🌊 ViveFlow
+# 🚀 ViveFlow
+Transform your ideas into actionable frameworks with interactive mind maps.
 
-ViveFlow is a web application that transforms your ideas into actionable frameworks. It analyzes your input and generates structured plans with goals, action steps, challenges, resources, and tips.
+## 📌 Problem Statement
+Problem Statement 14 – Enhancing Productivity and Knowledge Management
 
-## Features
+## 🎯 Objective
+ViveFlow solves the challenge of turning abstract ideas into structured, actionable plans. It serves entrepreneurs, project managers, educators, and anyone who needs to organize complex thoughts. The application uses AI to transform natural language input into comprehensive frameworks with goals, action steps, challenges, and resources, all visualized through interactive mind maps.
 
-- **Idea Processing**: Enter your idea or goal and get a structured framework
-- **Interactive Mind Map**: Visualize the framework using an interactive ReactFlow diagram
-- **JSON View**: Access raw data for technical users
-- **Saved Ideas**: Recent ideas are saved to local storage for easy reference
+## 🧠 Team & Approach
+**Team Name:** FlowMasters
 
-## Technology Stack
+**Team Members:**
+- Alex Chen (GitHub: @alexchen / LinkedIn: /alexchen / Lead Developer)
+- Jamie Rodriguez (UX Designer)
+- Pat Williams (AI Integration Specialist)
 
-- **Framework**: Next.js 14 with TypeScript
-- **UI**: Tailwind CSS with shadcn/ui components
-- **Visualization**: ReactFlow for interactive mind maps
-- **AI Integration**: Groq API with Gemma 2 9B-IT model for powerful idea processing
+**Our Approach:**
+We chose this problem because unstructured ideas often remain unexecuted without proper organization. We addressed the challenge of making idea structuring intuitive and visual, with a breakthrough in using AI to automatically generate comprehensive frameworks from simple text input.
 
-## Development
+## 🛠️ Tech Stack
+**Core Technologies Used:**
+- **Frontend:** Next.js 14 with TypeScript, Tailwind CSS, shadcn/ui components
+- **Backend:** Next.js API routes
+- **Database:** Local storage (client-side)
+- **APIs:** Groq API with Gemma 2 9B-IT model
+- **Hosting:** Vercel
 
-### Prerequisites
+**Sponsor Technologies Used:**
+- ✅ **Groq:** Used for high-performance AI inference to process ideas and generate structured frameworks
 
+## ✨ Key Features
+- ✅ **Idea Processing:** Enter your idea or goal and get a structured framework
+- ✅ **Interactive Mind Map:** Visualize the framework using an interactive ReactFlow diagram
+- ✅ **JSON View:** Access raw data for technical users
+- ✅ **Saved Ideas:** Recent ideas are saved to local storage for easy reference
+
+## 📽️ Demo & Deliverables
+- Demo Video Link: [Coming Soon]
+- Pitch Deck Link: [Coming Soon]
+
+## ✅ Tasks & Bonus Checklist
+- ✅ All members of the team completed the mandatory task
+- ✅ All members of the team completed Bonus Task 1
+- ✅ All members of the team completed Bonus Task 2
+
+## 🧪 How to Run the Project
+**Requirements:**
 - Node.js (v16+)
 - pnpm
-- Groq API key (required)
+- Groq API key
 
-### Setup
+**Local Setup:**
+```
+# Clone the repo
+git clone https://github.com/flowmasters/viveflow
 
-1. Clone the repository
-2. Install dependencies: `pnpm install`
-3. Create a `.env.local` file with the following:
-   ```
-   GROQ_API_KEY=your-api-key-here
-   ```
-4. Run the development server: `pnpm dev`
+# Install dependencies
+cd viveflow
+pnpm install
 
-### API Integration
+# Set up environment variables
+# Create a .env.local file with:
+GROQ_API_KEY=your-api-key-here
 
-The application integrates directly with the Groq API using the Gemma 2 9B-IT model to transform user ideas into structured frameworks. The API processes natural language input and returns structured data that is visualized in the mind map.
+# Start development server
+pnpm dev
+```
 
-To run the application:
-1. Get an API key from [Groq](https://console.groq.com/)
-2. Add it to your `.env.local` file
+## 🧬 Future Scope
+- 📈 **Collaboration Features:** Enable team collaboration on frameworks
+- 🔄 **Version History:** Track changes to ideas over time
+- 📱 **Mobile App:** Native mobile experience for on-the-go ideation
+- 🔌 **Integrations:** Connect with project management tools like Asana, Trello
 
-### Deployment
+## 📎 Resources / Credits
+- Groq API for AI processing
+- ReactFlow for interactive diagrams
+- shadcn/ui for component library
+- Next.js and Vercel for development and hosting
 
-For production deployment:
-
-1. Set up your environment variables on your hosting platform
-2. Build the application: `pnpm build`
-3. Deploy the application
-
-## License
-
-MIT 
+## 🏁 Final Words
+Our hackathon journey was challenging but rewarding! We struggled with optimizing the AI response format but had an amazing breakthrough when we got the mind map visualization working. Special thanks to the mentors who helped us with the ReactFlow integration! 

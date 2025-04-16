@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Wave to Network Logo -->
+  <g transform="translate(50, 80)">
+    <!-- Wave Element -->
+    <path d="M55 160 C100 80 150 190 200 130 C250 80 300 140 340 170" fill="#5D40F0" stroke="#5D40F0" stroke-width="5"/>
+    <path d="M55 180 C100 100 150 210 200 150 C250 100 300 160 340 190" fill="#4830CF" stroke="#4830CF" stroke-width="5"/>
+    
+    <!-- Network Node Center -->
+    <rect x="340" y="170" width="30" height="30" fill="#5D40F0" stroke="#5D40F0" stroke-width="2"/>
+    
+    <!-- Network Branches -->
+    <path d="M355 170 L355 120 Q355 100 375 100" stroke="#5D40F0" stroke-width="12" fill="none"/>
+    <path d="M370 170 L410 170" stroke="#5D40F0" stroke-width="12" fill="none"/>
+    <path d="M355 200 L355 250 Q355 270 375 270" stroke="#5D40F0" stroke-width="12" fill="none"/>
+    
+    <!-- Network Nodes -->
+    <circle cx="375" cy="100" r="20" fill="#5D40F0"/>
+    <circle cx="410" cy="170" r="20" fill="#5D40F0"/>
+    <circle cx="375" cy="270" r="20" fill="#5D40F0"/>
+  </g>
+  
+  <!-- ViveFlow Text (Outside the viewBox, hidden) -->
+  <!-- This text is only for reference. The actual logo in the image has the text below the icon -->
+</svg> 
