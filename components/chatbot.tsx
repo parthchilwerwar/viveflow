@@ -75,9 +75,9 @@ const CodeBlock = ({ code, language }: { code: string, language: string }) => {
   };
   
   return (
-    <div className="my-4 rounded-md overflow-hidden border border-slate-600 shadow-lg">
-      <div className="code-block-header px-3 py-2 flex justify-between items-center">
-        <span className="text-xs font-mono font-semibold text-gray-200">
+    <div className="my-2 sm:my-4 rounded-md overflow-hidden border border-slate-600 shadow-lg">
+      <div className="code-block-header px-2 sm:px-3 py-1 sm:py-2 flex justify-between items-center">
+        <span className="text-[10px] sm:text-xs font-mono font-semibold text-gray-200">
           {language || "code"}
         </span>
         <button 
@@ -86,14 +86,14 @@ const CodeBlock = ({ code, language }: { code: string, language: string }) => {
           title="Copy code"
         >
           {copied ? (
-            <Check className="h-4 w-4 text-green-400" />
+            <Check className="h-3 w-3 sm:h-4 sm:w-4 text-green-400" />
           ) : (
-            <Copy className="h-4 w-4 text-gray-300" />
+            <Copy className="h-3 w-3 sm:h-4 sm:w-4 text-gray-300" />
           )}
         </button>
       </div>
-      <pre className="p-4 overflow-x-auto text-gray-200 text-sm font-mono">
-        <code>{code}</code>
+      <pre className="p-2 sm:p-4 overflow-x-auto text-gray-200 text-xs sm:text-sm font-mono">
+        <code className="break-words whitespace-pre-wrap">{code}</code>
       </pre>
     </div>
   );
@@ -230,7 +230,7 @@ const formatMessageContent = (content: string) => {
     <div>
       {parts.map((part, index) => {
         if (part.type === 'text') {
-          return <p key={index} className="whitespace-pre-wrap break-words mb-4 leading-relaxed">{part.content}</p>;
+          return <p key={index} className="whitespace-pre-wrap break-words mb-2 leading-relaxed">{part.content}</p>;
         } else {
           // Process code block
           const codeBlock = part.content;
@@ -465,47 +465,50 @@ export default function Chatbot({ data, idea, logoSrc, assistantName = "ViveFlow
         <p className="text-xs sm:text-sm text-gray-400">Ask questions about your framework and how to implement it</p>
       </div>
       
-      <ScrollArea className="flex-grow p-2 sm:p-4" ref={scrollAreaRef}>
-        <div className="space-y-4 sm:space-y-6">
+      <ScrollArea className="flex-grow p-2 sm:p-4 overflow-y-auto" ref={scrollAreaRef}>
+        <div className="flex flex-col space-y-2 sm:space-y-3 pb-2">
           {messages.map((message, index) => (
             <div
               key={index}
               className={`flex ${message.role === "user" ? "justify-end" : "justify-start"} w-full`}
             >
               <div
-                className={`flex flex-row max-w-[95%] sm:max-w-[85%] ${
+                className={`flex max-w-[80%] sm:max-w-[75%] ${
                   message.role === "user"
                     ? "bg-blue-600 text-white rounded-tl-lg rounded-tr-lg rounded-bl-lg shadow-md"
                     : "bg-slate-800 text-white rounded-tl-lg rounded-tr-lg rounded-br-lg shadow-md"
-                } px-3 py-2 sm:px-5 sm:py-4`}
+                } px-2 py-2 sm:px-3`}
               >
-                <div className="mr-2 sm:mr-3 mt-1 flex-shrink-0">
-                  {message.role === "user" ? (
-                    <div className="avatar-icon-container h-5 w-5 sm:h-6 sm:w-6 bg-gradient-to-r from-blue-600 to-blue-400 ring-2 ring-blue-300/30 shadow-md">
-                      <User className="text-white" />
-                    </div>
-                  ) : (
-                    <div className="avatar-icon-container h-6 w-6 sm:h-7 sm:w-7 bg-white rounded-full p-0.5 ring-2 ring-indigo-300/50 shadow-md overflow-hidden">
-                      {logoSrc ? (
-                        <Image 
-                          src={logoSrc}
-                          alt="Bot Logo"
-                          width={28}
-                          height={28}
-                          className="object-contain"
-                        />
-                      ) : (
-                        <ViveFlowLogo />
-                      )}
-                    </div>
-                  )}
-                </div>
-                <div className="text-xs sm:text-sm overflow-hidden break-words min-w-0 flex-grow">
-                  {formatMessageContent(message.content)}
+                <div className="flex items-start w-full">
+                  <div className="flex-shrink-0 mt-1 mr-2">
+                    {message.role === "user" ? (
+                      <div className="h-4 w-4 sm:h-5 sm:w-5 bg-gradient-to-r from-blue-600 to-blue-400 ring-1 ring-blue-300/30 rounded-full shadow-md flex items-center justify-center">
+                        <User className="text-white h-2.5 w-2.5 sm:h-3.5 sm:w-3.5" />
+                      </div>
+                    ) : (
+                      <div className="h-4 w-4 sm:h-5 sm:w-5 bg-white rounded-full p-0.5 ring-1 ring-indigo-300/50 shadow-md overflow-hidden flex items-center justify-center">
+                        {logoSrc ? (
+                          <Image 
+                            src={logoSrc}
+                            alt="Bot Logo"
+                            width={20}
+                            height={20}
+                            className="object-contain"
+                          />
+                        ) : (
+                          <ViveFlowLogo />
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  <div className="text-xs sm:text-sm break-words flex-1 min-w-0">
+                    {formatMessageContent(message.content)}
+                  </div>
                 </div>
               </div>
             </div>
           ))}
+          
           {loading && (
             <div className="flex justify-start">
               <div className="bg-slate-800 text-white rounded-tl-lg rounded-tr-lg rounded-br-lg px-3 py-2 sm:px-4 sm:py-3 shadow-md">
