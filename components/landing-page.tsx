@@ -136,24 +136,8 @@ export default function LandingPage() {
               </Link>
             </div>
             
-            {/* Mobile quick navigation links */}
-            <div className="md:hidden flex flex-col gap-4 mb-10">
-              <div className="text-center text-sm text-gray-400 mb-2">
-                Quick Links:
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <Link href="#features" className="w-full">
-                  <Button variant="outline" className="w-full border-[#2f2c7c]/50 hover:border-[#2f2c7c] text-white">
-                    Features
-                  </Button>
-                </Link>
-                <Link href="#how-it-works" className="w-full">
-                  <Button variant="outline" className="w-full border-[#2f2c7c]/50 hover:border-[#2f2c7c] text-white">
-                    How It Works
-                  </Button>
-                </Link>
-              </div>
-            </div>
+            
+            
             
             {/* Editor Preview Image with requested specific background colors */}
             <div className="relative w-full max-w-10xl mx-auto mt-6 sm:mt-10">
