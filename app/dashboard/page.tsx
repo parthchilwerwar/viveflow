@@ -278,7 +278,7 @@ function DashboardContent() {
                       variant="outline"
                       onClick={clearForm}
                       disabled={loading}
-                      className="border-gray-700 text-black hover:bg-gray-300 text-xs sm:text-sm py-2 px-2 sm:px-4"
+                      className="border-gray-700 bg-white text-black hover:bg-gray-300 hover:text-black text-xs sm:text-sm py-2 px-2 sm:px-4"
                     >
                       <RefreshCw className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                       <span>Clear</span>
@@ -289,9 +289,9 @@ function DashboardContent() {
                         variant="outline"
                         onClick={() => setShowPromptEnhancer(true)}
                         disabled={loading || !idea.trim()}
-                        className="border-gray-700 text-black hover:bg-gray-300 text-xs sm:text-sm py-2 px-2 sm:px-4"
+                        className="border-gray-700 bg-white text-black hover:bg-gray-300 hover:text-black text-xs sm:text-sm py-2 px-2 sm:px-4"
                       >
-                        <span>Enhance</span>
+                        <span>⚡Enhance</span>
                       </Button>
                     )}
                   </>
