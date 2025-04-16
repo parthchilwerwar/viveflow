@@ -18,7 +18,7 @@ I chose this problem because unstructured ideas often remain unexecuted without 
 
 ## 🛠️ Tech Stack
 **Core Technologies Used:**
-- **Frontend:** Next.js 15 with TypeScript, Tailwind CSS, shadcn/ui components , Magicui componenets , Reactflow
+- **Frontend:** Next.js 15 with TypeScript, Tailwind CSS, shadcn/ui components , Magicui components , Reactflow
 - **Backend:** Next.js API routes
 - **Database:** Local storage (client-side)
 - **APIs:** Groq API with Gemma 2 9B-IT model 
@@ -38,9 +38,9 @@ I chose this problem because unstructured ideas often remain unexecuted without 
 - Pitch Deck Link: [Coming Soon]
 
 ## ✅ Tasks & Bonus Checklist
-- ✅ All members of the team completed the mandatory task
-- ✅ All members of the team completed Bonus Task 1
-- ✅ All members of the team completed Bonus Task 2
+- ✅ I completed the mandatory task
+- ✅ I completed Bonus Task 1
+- ✅ I completed Bonus Task 2
 
 ## 🧪 How to Run the Project
 **Requirements:**
