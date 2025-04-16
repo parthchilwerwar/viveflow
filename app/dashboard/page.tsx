@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, Suspense } from "react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -34,7 +34,8 @@ interface SavedFramework {
   date?: string
 }
 
-export default function Dashboard() {
+// Create a client component that uses the search params
+function DashboardContent() {
   const [idea, setIdea] = useState("")
   const [framework, setFramework] = useState<IdeaFramework | null>(null)
   const [loading, setLoading] = useState(false)
@@ -352,5 +353,16 @@ export default function Dashboard() {
         )}
       </main>
     </div>
+  )
+}
+
+// Main dashboard component that wraps the content in Suspense
+export default function Dashboard() {
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={<div className="p-12 flex justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>}>
+        <DashboardContent />
+      </Suspense>
+    </ErrorBoundary>
   )
 }

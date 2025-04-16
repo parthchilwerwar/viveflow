@@ -29,8 +29,11 @@ const nextConfig = {
   },
   env: {
     GROQ_API_KEY: process.env.GROQ_API_KEY,
+    NODE_ENV: 'production',
   },
   webpack: (config, { isServer, dev }) => {
+    process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+    
     if (!isServer && !dev) {
       config.optimization = {
         ...config.optimization,
