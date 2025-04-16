@@ -168,3 +168,69 @@ body {
   height: 14px !important;
 }
 
+/* Code Block Styling */
+pre {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 0.3s ease;
+}
+
+pre:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.code-block-header {
+  background: linear-gradient(to right, #334155, #1e293b);
+  border-bottom: 1px solid #475569;
+}
+
+.copy-button {
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+
+.copy-button:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Chat Avatar Styling */
+.chat-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chat-avatar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+}
+
+.chat-avatar.bot:hover {
+  box-shadow: 0 0 8px rgba(148, 163, 184, 0.5);
+}
+
+/* Fix for icon display in avatars */
+.avatar-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+  overflow: visible;
+}
+
+.avatar-icon-container:hover {
+  transform: scale(1.1);
+}
+
+.avatar-icon-container svg {
+  height: 1rem;
+  width: 1rem;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+  stroke-width: 2.5px;
+}
+

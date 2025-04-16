@@ -49,6 +49,70 @@ type CustomEdge = {
   }
 }
 
+// Helper function to format complex objects
+function formatComplexObject(item: any): string {
+  if (typeof item === 'string') {
+    // Clean markdown formatting from strings
+    let text = item;
+    
+    // Replace markdown formatting
+    text = text.replace(/#{1,6}\s+/g, '');
+    text = text.replace(/\*\*(.*?)\*\*/g, '$1');
+    text = text.replace(/\*(.*?)\*/g, '$1');
+    text = text.replace(/__(.*?)__/g, '$1');
+    text = text.replace(/_(.*?)_/g, '$1');
+    text = text.replace(/^\s*[-*]\s+/gm, '• ');
+    text = text.replace(/```[a-z]*\n/g, '');
+    text = text.replace(/```/g, '');
+    text = text.replace(/`([^`]+)`/g, '$1');
+    
+    return text;
+  }
+  
+  // For action step details
+  if (item && typeof item === 'object') {
+    // If the object has JSON syntax characters in it, format it nicely
+    if (JSON.stringify(item).includes('{') || JSON.stringify(item).includes('[')) {
+      let formattedText = '';
+      
+      // Extract the most relevant fields
+      if (item.step || item.tip || item.challenge || item.resource) {
+        formattedText = item.step || item.tip || item.challenge || item.resource || '';
+      } else if (item.description) {
+        formattedText = item.description;
+      }
+      
+      // Add priority or other important metadata
+      if (item.priority) {
+        formattedText += `\nPriority: ${item.priority}`;
+      }
+      
+      if (item.estimated_time) {
+        formattedText += `\nTime: ${item.estimated_time}`;
+      }
+      
+      // Clean any remaining markdown formatting
+      formattedText = formattedText.replace(/#{1,6}\s+/g, '');
+      formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '$1');
+      formattedText = formattedText.replace(/\*(.*?)\*/g, '$1');
+      formattedText = formattedText.replace(/`([^`]+)`/g, '$1');
+      
+      return formattedText || JSON.stringify(item).substring(0, 100);
+    }
+  }
+  
+  // Last resort: stringify but keep it short
+  if (item) {
+    const stringified = JSON.stringify(item);
+    if (stringified.length > 100) {
+      return stringified.substring(0, 97) + "...";
+    }
+    return stringified.replace(/[{}\[\]"]/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  
+  return "No content";
+}
+
 export default function ReactFlowChart({ data }: ReactFlowChartProps) {
   // Use proper type annotations for nodes and edges
   const [nodes, setNodes, onNodesChange] = useNodesState<CustomNode>([])
@@ -259,9 +323,12 @@ export default function ReactFlowChart({ data }: ReactFlowChartProps) {
       const itemX = actionStepsX + (index % 2 === 0 ? -200 : 200)
       const itemY = actionStepsY + offset
 
+      // Use the helper function to format the content
+      const stepContent = formatComplexObject(item)
+
       newNodes.push({
         id: itemId,
-        data: { label: item },
+        data: { label: stepContent },
         position: { x: itemX - nodeWidth/2, y: itemY },
         style: {
           width: nodeWidth,
@@ -312,9 +379,12 @@ export default function ReactFlowChart({ data }: ReactFlowChartProps) {
       const itemX = challengesX + (index % 2 === 0 ? -200 : 200)
       const itemY = challengesY + offset
 
+      // Use the helper function to format the content
+      const challengeContent = formatComplexObject(item)
+
       newNodes.push({
         id: itemId,
-        data: { label: item },
+        data: { label: challengeContent },
         position: { x: itemX - nodeWidth/2, y: itemY },
         style: {
           width: nodeWidth,
@@ -365,9 +435,12 @@ export default function ReactFlowChart({ data }: ReactFlowChartProps) {
       const itemX = resourcesX + (index % 2 === 0 ? -200 : 200)
       const itemY = resourcesY + offset
 
+      // Use the helper function to format the content
+      const resourceContent = formatComplexObject(item)
+
       newNodes.push({
         id: itemId,
-        data: { label: item },
+        data: { label: resourceContent },
         position: { x: itemX - nodeWidth/2, y: itemY },
         style: {
           width: nodeWidth,
@@ -404,9 +477,12 @@ export default function ReactFlowChart({ data }: ReactFlowChartProps) {
       const itemX = tipsX + (index % 2 === 0 ? -200 : 200)
       const itemY = tipsY + offset
 
+      // Use the helper function to format the content
+      const tipContent = formatComplexObject(item)
+
       newNodes.push({
         id: itemId,
-        data: { label: item },
+        data: { label: tipContent },
         position: { x: itemX - nodeWidth/2, y: itemY },
         style: {
           width: nodeWidth,
@@ -523,15 +599,56 @@ export default function ReactFlowChart({ data }: ReactFlowChartProps) {
       })
 
       // Add clarification items
-      data.clarification_needed.forEach((item, index) => {
-        const itemId = `clarification-${index}`
-        const offset = (index + 1) * verticalSpacing * 0.85
-        const itemX = clarificationX + (index % 2 === 0 ? -200 : 200)
-        const itemY = clarificationY + offset
+      if (Array.isArray(data.clarification_needed)) {
+        data.clarification_needed.forEach((item, index) => {
+          const itemId = `clarification-${index}`
+          const offset = (index + 1) * verticalSpacing * 0.85
+          const itemX = clarificationX + (index % 2 === 0 ? -200 : 200)
+          const itemY = clarificationY + offset
 
+          // Use the helper function to format the content
+          const clarificationContent = formatComplexObject(item)
+
+          newNodes.push({
+            id: itemId,
+            data: { label: clarificationContent },
+            position: { x: itemX - nodeWidth/2, y: itemY },
+            style: {
+              width: nodeWidth,
+              padding: '8px',
+              border: `1px solid ${colors.clarification.border}`,
+              borderRadius: '4px',
+              background: colors.clarification.bg,
+              color: '#ffffff',
+              fontSize: '13px',
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
+            }
+          })
+
+          newEdges.push({
+            id: `clarification-${itemId}`,
+            source: 'clarification',
+            target: itemId,
+            style: { 
+              stroke: colors.clarification.border,
+              strokeDasharray: '5 5',
+              strokeWidth: 1
+            },
+            markerEnd: {
+              type: MarkerType.ArrowClosed,
+              color: colors.clarification.border,
+            }
+          })
+        })
+      } else if (typeof data.clarification_needed === 'string') {
+        // Handle case where clarification_needed is a string instead of an array
+        const itemId = `clarification-0`
+        const itemX = clarificationX
+        const itemY = clarificationY + verticalSpacing * 0.85
+        
         newNodes.push({
           id: itemId,
-          data: { label: item },
+          data: { label: data.clarification_needed },
           position: { x: itemX - nodeWidth/2, y: itemY },
           style: {
             width: nodeWidth,
@@ -559,7 +676,7 @@ export default function ReactFlowChart({ data }: ReactFlowChartProps) {
             color: colors.clarification.border,
           }
         })
-      })
+      }
     }
 
     return { nodes: newNodes, edges: newEdges }

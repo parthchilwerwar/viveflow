@@ -10,6 +10,77 @@ interface JsonPanelProps {
   data: any
 }
 
+// Helper function to format complex objects
+function formatComplexItem(item: any): string {
+  if (typeof item === 'string') {
+    // Clean markdown formatting
+    let text = item;
+    
+    // Remove markdown headers
+    text = text.replace(/#{1,6}\s+/g, '');
+    
+    // Replace bold/italic markers with plain text
+    text = text.replace(/\*\*(.*?)\*\*/g, '$1');
+    text = text.replace(/\*(.*?)\*/g, '$1');
+    text = text.replace(/__(.*?)__/g, '$1');
+    text = text.replace(/_(.*?)_/g, '$1');
+    
+    // Replace markdown bullet points with plain bullets
+    text = text.replace(/^\s*[-*]\s+/gm, '• ');
+    
+    // Remove code blocks formatting
+    text = text.replace(/```[a-z]*\n/g, '');
+    text = text.replace(/```/g, '');
+    text = text.replace(/`([^`]+)`/g, '$1');
+    
+    return text;
+  }
+  
+  // Handle complex objects
+  if (item && typeof item === 'object') {
+    let formattedText = '';
+    
+    // Extract the most meaningful property for display
+    if (item.step) {
+      formattedText = item.step;
+    } else if (item.tip) {
+      formattedText = item.tip;
+    } else if (item.challenge) {
+      formattedText = item.challenge;
+    } else if (item.resource) {
+      formattedText = item.resource;
+    } else if (item.explanation) {
+      formattedText = item.explanation;
+    } else if (item.description) {
+      formattedText = item.description;
+    }
+    
+    // Add important metadata
+    if (item.priority) {
+      formattedText += ` (Priority: ${item.priority})`;
+    }
+    
+    if (item.estimated_time) {
+      formattedText += ` (Time: ${item.estimated_time})`;
+    }
+    
+    // Clean any markdown formatting from the result
+    formattedText = formattedText.replace(/#{1,6}\s+/g, '');
+    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '$1');
+    formattedText = formattedText.replace(/\*(.*?)\*/g, '$1');
+    formattedText = formattedText.replace(/`([^`]+)`/g, '$1');
+    
+    if (formattedText) return formattedText;
+    
+    // If we couldn't extract a meaningful property, return a cleaned-up JSON string
+    const stringified = JSON.stringify(item);
+    return stringified.replace(/[{}\[\]"]/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  
+  // Last resort - could be null or undefined
+  return item ? JSON.stringify(item) : '';
+}
+
 const JsonPanel = ({ data }: JsonPanelProps) => {
   const { toast } = useToast()
   const [expanded, setExpanded] = useState(true)
@@ -47,9 +118,12 @@ const JsonPanel = ({ data }: JsonPanelProps) => {
             <span className="mr-2">📋</span> Action Steps
           </h3>
           <ul className="space-y-2 pl-6">
-            {memoizedData.action_steps.map((step: string, index: number) => (
-              <li key={index} className="list-disc text-gray-300">{step}</li>
-            ))}
+            {memoizedData.action_steps.map((step: any, index: number) => {
+              const stepContent = formatComplexItem(step);
+              return (
+                <li key={index} className="list-disc text-gray-300">{stepContent}</li>
+              );
+            })}
           </ul>
         </div>
         
@@ -59,9 +133,12 @@ const JsonPanel = ({ data }: JsonPanelProps) => {
             <span className="mr-2">⚠️</span> Challenges
           </h3>
           <ul className="space-y-2 pl-6">
-            {memoizedData.challenges.map((challenge: string, index: number) => (
-              <li key={index} className="list-disc text-gray-300">{challenge}</li>
-            ))}
+            {memoizedData.challenges.map((challenge: any, index: number) => {
+              const challengeContent = formatComplexItem(challenge);
+              return (
+                <li key={index} className="list-disc text-gray-300">{challengeContent}</li>
+              );
+            })}
           </ul>
         </div>
         
@@ -71,9 +148,12 @@ const JsonPanel = ({ data }: JsonPanelProps) => {
             <span className="mr-2">🔧</span> Resources
           </h3>
           <ul className="space-y-2 pl-6">
-            {memoizedData.resources.map((resource: string, index: number) => (
-              <li key={index} className="list-disc text-gray-300">{resource}</li>
-            ))}
+            {memoizedData.resources.map((resource: any, index: number) => {
+              const resourceContent = formatComplexItem(resource);
+              return (
+                <li key={index} className="list-disc text-gray-300">{resourceContent}</li>
+              );
+            })}
           </ul>
         </div>
         
@@ -83,22 +163,36 @@ const JsonPanel = ({ data }: JsonPanelProps) => {
             <span className="mr-2">💡</span> Tips
           </h3>
           <ul className="space-y-2 pl-6">
-            {memoizedData.tips.map((tip: string, index: number) => (
-              <li key={index} className="list-disc text-gray-300">{tip}</li>
-            ))}
+            {memoizedData.tips.map((tip: any, index: number) => {
+              const tipContent = formatComplexItem(tip);
+              return (
+                <li key={index} className="list-disc text-gray-300">{tipContent}</li>
+              );
+            })}
           </ul>
         </div>
         
         {/* Clarification Needed (if any) */}
-        {memoizedData.clarification_needed && memoizedData.clarification_needed.length > 0 && (
+        {memoizedData.clarification_needed && 
+          (Array.isArray(memoizedData.clarification_needed) ? 
+            memoizedData.clarification_needed.length > 0 : 
+            typeof memoizedData.clarification_needed === 'string') && (
           <div className="mb-8">
             <h3 className="flex items-center text-lg font-semibold text-purple-400 mb-3">
               <span className="mr-2">❓</span> Clarification Needed
             </h3>
             <ul className="space-y-2 pl-6">
-              {memoizedData.clarification_needed.map((item: string, index: number) => (
-                <li key={index} className="list-disc text-gray-300">{item}</li>
-              ))}
+              {Array.isArray(memoizedData.clarification_needed) ?
+                // Handle array case
+                memoizedData.clarification_needed.map((item: any, index: number) => {
+                  const itemContent = formatComplexItem(item);
+                  return (
+                    <li key={index} className="list-disc text-gray-300">{itemContent}</li>
+                  );
+                }) :
+                // Handle string case
+                <li className="list-disc text-gray-300">{formatComplexItem(memoizedData.clarification_needed)}</li>
+              }
             </ul>
           </div>
         )}

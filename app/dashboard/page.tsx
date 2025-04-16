@@ -15,15 +15,8 @@ import PromptEnhancer from "@/components/ai-suggestions"
 import Link from "next/link"
 import { FolderIcon } from "lucide-react"
 import { useSearchParams } from "next/navigation"
-
-interface IdeaFramework {
-  goal: string
-  action_steps: string[]
-  challenges: string[]
-  resources: string[]
-  tips: string[]
-  clarification_needed?: string[]
-}
+import { IdeaFramework } from "@/types/framework"
+import Chatbot from "@/components/chatbot"
 
 interface SavedFramework {
   id: number
@@ -93,39 +86,73 @@ function DashboardContent() {
         title: "Input required",
         description: "Please enter your idea before generating a framework.",
         variant: "destructive",
-      })
-      return
+      });
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
     try {
+      console.log("Sending idea to API:", idea.substring(0, 50) + "...");
+      
       const response = await fetch("/api/process-idea", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ idea }),
-      })
+      });
 
-      const responseData = await response.json()
+      const responseData = await response.json();
       
       if (!response.ok) {
-        throw new Error(responseData.error || "Failed to process idea")
+        console.error(`API request failed with status ${response.status}:`, responseData);
+        setLoading(false);
+        toast({
+          title: "Processing failed",
+          description: responseData.error || "Failed to process idea. Please try again.",
+          variant: "destructive",
+        });
+        return;
       }
 
-      // Validate the response structure
-      const requiredFields = ["goal", "action_steps", "challenges", "resources", "tips"]
-      const missingFields = requiredFields.filter(field => !(field in responseData))
+      console.log("API response received, validating structure");
       
-      if (missingFields.length > 0) {
-        throw new Error(`Missing required fields in response: ${missingFields.join(", ")}`)
+      // Validate the response structure
+      const requiredFields = ["goal", "action_steps", "challenges", "resources", "tips"];
+      let hasAllRequiredFields = true;
+      
+      // Instead of stopping on missing fields, log warnings and continue
+      requiredFields.forEach(field => {
+        if (!(field in responseData)) {
+          console.warn(`Missing field in response: ${field}`);
+          hasAllRequiredFields = false;
+        } else if (Array.isArray(responseData[field]) && responseData[field].length === 0) {
+          console.warn(`Field ${field} is empty array`);
+        }
+      });
+      
+      if (!hasAllRequiredFields) {
+        console.warn("Some required fields are missing, but continuing with available data");
+        toast({
+          title: "Partial framework generated",
+          description: "Some elements may be missing from the framework, but we'll display what we have.",
+          variant: "default",
+        });
+      } else {
+        console.log("Framework generated successfully");
       }
       
+      // Ensure we have at least empty arrays for all required array fields
+      if (!responseData.action_steps) responseData.action_steps = [];
+      if (!responseData.challenges) responseData.challenges = [];
+      if (!responseData.resources) responseData.resources = [];
+      if (!responseData.tips) responseData.tips = [];
+      
       // Update both state and ref to ensure synchronization
-      setFramework(responseData)
-      frameworkRef.current = responseData
-      setIsViewingPrevious(false)
-      setCurrentFrameworkId(null)
+      setFramework(responseData);
+      frameworkRef.current = responseData;
+      setIsViewingPrevious(false);
+      setCurrentFrameworkId(null);
 
       // Save to localStorage
       try {
@@ -320,24 +347,65 @@ function DashboardContent() {
 
         {framework && (
           <ErrorBoundary>
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6 sm:mb-8">
-              <div className="flex flex-col sm:flex-row justify-between items-center mb-3 sm:mb-4 gap-2 sm:gap-0">
-                <TabsList className="grid grid-cols-2 w-full sm:w-auto bg-slate-900/60 border border-gray-800">
-                  <TabsTrigger value="mindmap" className="data-[state=active]:bg-blue-600 text-gray-300 data-[state=active]:text-white text-xs sm:text-sm py-1.5 sm:py-2 px-3 sm:px-4">Flow Chart</TabsTrigger>
-                  <TabsTrigger value="json" className="data-[state=active]:bg-blue-600 text-gray-300 data-[state=active]:text-white text-xs sm:text-sm py-1.5 sm:py-2 px-3 sm:px-4">Text View</TabsTrigger>
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <div className="flex justify-between items-center mb-4  p-2 rounded-t-md ">
+                <TabsList className="bg-black">
+                  <TabsTrigger 
+                    value="mindmap"
+                    className={`${activeTab === 'mindmap' ? 'bg-blue-600 text-white' : 'bg-transparent text-white hover:bg-blue-800/60'} px-4 py-2 rounded`}
+                  >
+                    Flow Chart
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="json"
+                    className={`${activeTab === 'json' ? 'bg-blue-600 text-white' : 'bg-transparent text-white hover:bg-blue-800/60'} px-4 py-2 rounded`}
+                  >
+                    Text View
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="chatbot"
+                    className={`${activeTab === 'chatbot' ? 'bg-blue-600 text-white' : 'bg-transparent text-white hover:bg-blue-800/60'} px-4 py-2 rounded`}
+                  >
+                    AI Assistant
+                  </TabsTrigger>
                 </TabsList>
                 
-                <div className="flex gap-2 w-full sm:w-auto">
-                  <Button variant="outline" size="sm" onClick={syncData} title="Sync data between views" className="border-gray-700 bg-white text-black hover:bg-gray-200 text-xs sm:text-sm py-1 sm:py-2 px-2 sm:px-4 flex-1 sm:flex-none">
-                    <RefreshCw className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={syncData} 
+                    title="Sync data between views" 
+                    className="bg-white  text-black   hover:bg-gray-300 border-gray-700 flex items-center gap-1 text-sm py-2 px-4"
+                  >
+                    <RefreshCw className="h-4 w-4" />
                     <span>Sync</span>
                   </Button>
                   
-                  <div className="flex-1 sm:flex-none">
+                  <div className="flex-none">
                     <ExportMenu elementId="flow-chart-container" filename={`framework-${currentFrameworkId || Date.now()}`} />
                   </div>
                 </div>
               </div>
+              
+              {isViewingPrevious && (
+                <div className="flex mb-4">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => {
+                      setFramework(null)
+                      setIdea("")
+                      setIsViewingPrevious(false)
+                      setCurrentFrameworkId(null)
+                    }}
+                    className="border-gray-700 bg-white text-black hover:bg-gray-300 text-xs sm:text-sm py-1 sm:py-2 px-2 sm:px-4 flex-none"
+                  >
+                    <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                    <span>Back to editor</span>
+                  </Button>
+                </div>
+              )}
 
               <TabsContent value="mindmap" className="min-h-[500px] sm:min-h-[600px]">
                 <div id="flow-chart-container">
@@ -348,12 +416,16 @@ function DashboardContent() {
               <TabsContent value="json">
                 <JsonPanel data={framework} />
               </TabsContent>
+              
+              <TabsContent value="chatbot">
+                <Chatbot data={framework} idea={idea} />
+              </TabsContent>
             </Tabs>
           </ErrorBoundary>
         )}
       </main>
     </div>
-  )
+  );
 }
 
 // Main dashboard component that wraps the content in Suspense
@@ -364,5 +436,5 @@ export default function Dashboard() {
         <DashboardContent />
       </Suspense>
     </ErrorBoundary>
-  )
+  );
 }

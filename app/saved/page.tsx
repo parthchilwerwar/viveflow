@@ -15,15 +15,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { TrashIcon, PencilIcon, FolderIcon, TagIcon, SearchIcon, FilterIcon, DownloadIcon } from "lucide-react"
 import Link from "next/link"
-
-interface IdeaFramework {
-  goal: string
-  action_steps: string[]
-  challenges: string[]
-  resources: string[]
-  tips: string[]
-  clarification_needed?: string[]
-}
+import { IdeaFramework } from "@/types/framework"
 
 interface SavedFramework {
   id: number
@@ -204,7 +196,7 @@ export default function SavedFrameworks() {
           
           <div className="flex items-center">
             <Link href="/dashboard">
-              <Button className="text-black hover:text-black-300 bg-white text-xs sm:text-sm py-1.5 sm:py-2 px-2 sm:px-4">Dashboard</Button>
+              <Button className="bg-white  text-black   hover:bg-gray-300 text-xs sm:text-sm py-1.5 sm:py-2 px-2 sm:px-4">Dashboard</Button>
             </Link>
           </div>
         </div>
