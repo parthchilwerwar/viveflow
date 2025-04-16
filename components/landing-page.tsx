@@ -54,11 +54,10 @@ export default function LandingPage() {
     <div className="min-h-screen bg-black text-white overflow-hidden">
       {/* Header with improved blur effect */}
       <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-2
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 transition-all duration-300
           ${scrolled 
-            ? 'bg-black/40 backdrop-blur-md shadow-md' 
-            : 'bg-black/20 backdrop-blur-sm'
-          }`}
+            ? 'backdrop-blur-md' : 'bg-transparent'
+          } border-b border-[#D5FE52]/20 `}
       >
         <div className="container mx-auto px-4 flex justify-between items-center h-12">
           <div className="flex items-center gap-2">
