@@ -49,6 +49,7 @@ export interface TipDetail {
   explanation: string
   examples: string[]
   context: string
+  description?: string
 }
 
 export interface Timeline {
