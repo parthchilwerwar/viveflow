@@ -1,0 +1,42 @@
+/* ReactFlow custom styles */
+
+.react-flow__edge-path {
+  stroke-width: 2;
+}
+
+.react-flow__edge.animated .react-flow__edge-path {
+  stroke-dasharray: 5 5;
+}
+
+.react-flow__controls {
+  bottom: 10px;
+  right: 10px;
+  left: auto;
+  top: auto;
+}
+
+/* Previously added styles */
+.react-flow__edge-path {
+  stroke-dasharray: 5, 5 !important;
+}
+
+.react-flow__edge.animated .react-flow__edge-path {
+  animation: flowPathAnimation 1s infinite linear !important;
+}
+
+@keyframes flowPathAnimation {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+/* Add specific styling to ensure edges are visible */
+.react-flow__edge {
+  pointer-events: all;
+  z-index: 10;
+}
+
+/* Improve edge visibility with thicker lines */
+.react-flow-wrapper .react-flow__edge-path {
+  stroke-width: 1.5;
+} 

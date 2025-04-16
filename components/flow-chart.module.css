@@ -1,0 +1,43 @@
+/* Flow chart specific styles */
+
+.react-flow__node {
+  font-size: 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.flowchartWrapper {
+  width: 100%;
+  height: 600px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+@media (max-width: 768px) {
+  .flowchartWrapper {
+    height: 400px;
+  }
+}
+
+/* Additional styling for React Flow elements */
+.flowchartWrapper :global(.react-flow__edge-path) {
+  stroke-dasharray: 5, 5;
+  animation: flowAnimation 1s infinite linear;
+}
+
+@keyframes flowAnimation {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+/* Dark mode styles */
+:global(.dark) .flowchartWrapper :global(.react-flow__edge-path) {
+  stroke-width: 2px;
+}
+
+/* Improve edge color contrast */
+.flowchartWrapper :global(.react-flow__edge) {
+  --edge-stroke: var(--foreground);
+} 
