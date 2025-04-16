@@ -2,7 +2,7 @@
 Transform your ideas into actionable frameworks with interactive mind maps.
 
 ## 📌 Problem Statement
-Problem Statement 14 – Enhancing Productivity and Knowledge Management
+Problem Statement 1 - Weave Al magic with Groq
 
 ## 🎯 Objective
 ViveFlow solves the challenge of turning abstract ideas into structured, actionable plans. It serves entrepreneurs, project managers, educators, and anyone who needs to organize complex thoughts. The application uses AI to transform natural language input into comprehensive frameworks with goals, action steps, challenges, and resources, all visualized through interactive mind maps.
