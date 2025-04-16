@@ -185,7 +185,7 @@ const formatMessageContent = (content: string) => {
       return <div className="space-y-2">{elements}</div>;
     }
     
-    return <p className="whitespace-pre-wrap leading-relaxed">{processedContent}</p>;
+    return <p className="whitespace-pre-wrap break-words leading-relaxed">{processedContent}</p>;
   }
 
   // Split content by code blocks with a better regex that handles multiline code properly
@@ -230,7 +230,7 @@ const formatMessageContent = (content: string) => {
     <div>
       {parts.map((part, index) => {
         if (part.type === 'text') {
-          return <p key={index} className="whitespace-pre-wrap mb-4 leading-relaxed">{part.content}</p>;
+          return <p key={index} className="whitespace-pre-wrap break-words mb-4 leading-relaxed">{part.content}</p>;
         } else {
           // Process code block
           const codeBlock = part.content;
@@ -406,10 +406,10 @@ export default function Chatbot({ data, idea, logoSrc, assistantName = "ViveFlow
 
   return (
     <div className="flex flex-col h-[600px] bg-slate-900/60 border border-gray-800 rounded-md">
-      <div className="p-3 border-b border-gray-800 bg-slate-800/70">
+      <div className="p-2 sm:p-3 border-b border-gray-800 bg-slate-800/70">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full overflow-hidden">
+          <div className="flex items-center gap-1 sm:gap-2">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden">
               {logoSrc ? (
                 <Image 
                   src={logoSrc}
@@ -422,7 +422,7 @@ export default function Chatbot({ data, idea, logoSrc, assistantName = "ViveFlow
                 <ViveFlowLogo />
               )}
             </div>
-            <h3 className="text-lg font-semibold">{assistantName}</h3>
+            <h3 className="text-sm sm:text-lg font-semibold">{assistantName}</h3>
           </div>
           <Button
             variant="ghost"
@@ -457,35 +457,35 @@ export default function Chatbot({ data, idea, logoSrc, assistantName = "ViveFlow
                 });
               }
             }}
-            className="text-xs text-black bg-white hover:bg-gray-300"
+            className="text-[10px] sm:text-xs text-black bg-white hover:bg-gray-300 px-1.5 py-0.5 sm:px-2 sm:py-1 h-auto min-h-0 rounded"
           >
-            Clear Chat
+            Clear
           </Button>
         </div>
-        <p className="text-sm text-gray-400">Ask questions about your framework and how to implement it</p>
+        <p className="text-xs sm:text-sm text-gray-400">Ask questions about your framework and how to implement it</p>
       </div>
       
-      <ScrollArea className="flex-grow p-4" ref={scrollAreaRef}>
-        <div className="space-y-6">
+      <ScrollArea className="flex-grow p-2 sm:p-4" ref={scrollAreaRef}>
+        <div className="space-y-4 sm:space-y-6">
           {messages.map((message, index) => (
             <div
               key={index}
-              className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+              className={`flex ${message.role === "user" ? "justify-end" : "justify-start"} w-full`}
             >
               <div
-                className={`flex max-w-[85%] ${
+                className={`flex flex-row max-w-[95%] sm:max-w-[85%] ${
                   message.role === "user"
                     ? "bg-blue-600 text-white rounded-tl-lg rounded-tr-lg rounded-bl-lg shadow-md"
                     : "bg-slate-800 text-white rounded-tl-lg rounded-tr-lg rounded-br-lg shadow-md"
-                } px-5 py-4`}
+                } px-3 py-2 sm:px-5 sm:py-4`}
               >
-                <div className="mr-3 mt-1">
+                <div className="mr-2 sm:mr-3 mt-1 flex-shrink-0">
                   {message.role === "user" ? (
-                    <div className="avatar-icon-container h-6 w-6 bg-gradient-to-r from-blue-600 to-blue-400 ring-2 ring-blue-300/30 shadow-md">
+                    <div className="avatar-icon-container h-5 w-5 sm:h-6 sm:w-6 bg-gradient-to-r from-blue-600 to-blue-400 ring-2 ring-blue-300/30 shadow-md">
                       <User className="text-white" />
                     </div>
                   ) : (
-                    <div className="avatar-icon-container h-7 w-7 bg-white rounded-full p-0.5 ring-2 ring-indigo-300/50 shadow-md overflow-hidden">
+                    <div className="avatar-icon-container h-6 w-6 sm:h-7 sm:w-7 bg-white rounded-full p-0.5 ring-2 ring-indigo-300/50 shadow-md overflow-hidden">
                       {logoSrc ? (
                         <Image 
                           src={logoSrc}
@@ -500,7 +500,7 @@ export default function Chatbot({ data, idea, logoSrc, assistantName = "ViveFlow
                     </div>
                   )}
                 </div>
-                <div className="text-sm">
+                <div className="text-xs sm:text-sm overflow-hidden break-words min-w-0 flex-grow">
                   {formatMessageContent(message.content)}
                 </div>
               </div>
@@ -508,9 +508,9 @@ export default function Chatbot({ data, idea, logoSrc, assistantName = "ViveFlow
           ))}
           {loading && (
             <div className="flex justify-start">
-              <div className="bg-slate-800 text-white rounded-tl-lg rounded-tr-lg rounded-br-lg px-4 py-3 shadow-md">
+              <div className="bg-slate-800 text-white rounded-tl-lg rounded-tr-lg rounded-br-lg px-3 py-2 sm:px-4 sm:py-3 shadow-md">
                 <div className="flex items-center">
-                  <Loader2 className="h-5 w-5 animate-spin text-indigo-400 mr-2" />
+                  <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin text-indigo-400 mr-2" />
                   <span className="text-xs text-gray-400">Thinking...</span>
                 </div>
               </div>
@@ -519,23 +519,23 @@ export default function Chatbot({ data, idea, logoSrc, assistantName = "ViveFlow
         </div>
       </ScrollArea>
       
-      <div className="p-3 border-t border-gray-800">
-        <div className="flex gap-2">
+      <div className="p-2 sm:p-3 border-t border-gray-800">
+        <div className="flex gap-1 sm:gap-2">
           <Textarea
             placeholder="Chat with me about your idea! I'm here to help... 💭"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="resize-none bg-slate-800/70 border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-white placeholder:text-gray-500 rounded-md leading-relaxed"
-            style={{ color: 'white', padding: '0.75rem' }}
+            className="resize-none bg-slate-800/70 border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-white placeholder:text-gray-500 rounded-md leading-relaxed text-xs sm:text-sm"
+            style={{ color: 'white', padding: '0.5rem 0.75rem' }}
             rows={2}
           />
           <Button
             onClick={sendMessage}
             disabled={loading || !input.trim()}
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-md transition-all"
+            className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-md transition-all p-2 sm:p-3"
           >
-            {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
+            {loading ? <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin" /> : <Send className="h-4 w-4 sm:h-5 sm:w-5" />}
           </Button>
         </div>
       </div>

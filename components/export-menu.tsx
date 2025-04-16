@@ -183,9 +183,9 @@ export default function ExportMenu({ elementId, filename = 'framework' }: Export
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="bg-white  text-black   hover:bg-gray-300  border-gray-700 flex items-center gap-1 text-sm py-2 px-4">
+        <Button variant="outline" className="bg-white text-black hover:bg-gray-300 border-gray-700 flex items-center gap-1 text-xs sm:text-sm p-1 sm:py-2 sm:px-4 h-8 w-8 sm:h-auto sm:w-auto">
           <Download className="h-4 w-4" />
-          <span>Export</span>
+          <span className="hidden sm:inline">Export</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="bg-gray-800 border-gray-700 text-white min-w-[150px] sm:min-w-[180px]">

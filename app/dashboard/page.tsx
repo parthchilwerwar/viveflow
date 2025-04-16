@@ -348,64 +348,49 @@ function DashboardContent() {
         {framework && (
           <ErrorBoundary>
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <div className="flex justify-between items-center mb-4  p-2 rounded-t-md ">
-                <TabsList className="bg-black">
-                  <TabsTrigger 
-                    value="mindmap"
-                    className={`${activeTab === 'mindmap' ? 'bg-blue-600 text-white' : 'bg-transparent text-white hover:bg-blue-800/60'} px-4 py-2 rounded`}
-                  >
-                    Flow Chart
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="json"
-                    className={`${activeTab === 'json' ? 'bg-blue-600 text-white' : 'bg-transparent text-white hover:bg-blue-800/60'} px-4 py-2 rounded`}
-                  >
-                    Text View
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="chatbot"
-                    className={`${activeTab === 'chatbot' ? 'bg-blue-600 text-white' : 'bg-transparent text-white hover:bg-blue-800/60'} px-4 py-2 rounded`}
-                  >
-                    AI Assistant
-                  </TabsTrigger>
-                </TabsList>
-                
-                <div className="flex gap-2">
+              <div className="flex flex-col mb-4 rounded-t-md">
+                {/* Action buttons - moved to top for mobile */}
+                <div className="flex gap-1 justify-end mb-2 px-2">
                   <Button 
                     variant="outline" 
                     size="sm" 
                     onClick={syncData} 
                     title="Sync data between views" 
-                    className="bg-white  text-black   hover:bg-gray-300 border-gray-700 flex items-center gap-1 text-sm py-2 px-4"
+                    className="bg-white text-black hover:bg-gray-300 border-gray-700 p-1 sm:p-2 h-8 w-8 sm:h-auto sm:w-auto"
                   >
                     <RefreshCw className="h-4 w-4" />
-                    <span>Sync</span>
+                    <span className="hidden sm:inline ml-1">Sync</span>
                   </Button>
                   
                   <div className="flex-none">
                     <ExportMenu elementId="flow-chart-container" filename={`framework-${currentFrameworkId || Date.now()}`} />
                   </div>
                 </div>
+                
+                {/* Tabs list */}
+                <TabsList className="bg-black w-full flex justify-between py-1 px-1">
+                  <TabsTrigger 
+                    value="mindmap"
+                    className={`${activeTab === 'mindmap' ? 'bg-blue-600 text-white' : 'bg-transparent text-white hover:bg-blue-800/60'} px-2 sm:px-3 py-1.5 rounded text-xs whitespace-nowrap flex-1`}
+                  >
+                    Flow Chart
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="json"
+                    className={`${activeTab === 'json' ? 'bg-blue-600 text-white' : 'bg-transparent text-white hover:bg-blue-800/60'} px-2 sm:px-3 py-1.5 rounded text-xs whitespace-nowrap flex-1`}
+                  >
+                    Text View
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="chatbot"
+                    className={`${activeTab === 'chatbot' ? 'bg-blue-600 text-white' : 'bg-transparent text-white hover:bg-blue-800/60'} px-2 sm:px-3 py-1.5 rounded text-xs whitespace-nowrap flex-1`}
+                  >
+                    AI Assistant
+                  </TabsTrigger>
+                </TabsList>
               </div>
               
-              {isViewingPrevious && (
-                <div className="flex mb-4">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    onClick={() => {
-                      setFramework(null)
-                      setIdea("")
-                      setIsViewingPrevious(false)
-                      setCurrentFrameworkId(null)
-                    }}
-                    className="border-gray-700 bg-white text-black hover:bg-gray-300 text-xs sm:text-sm py-1 sm:py-2 px-2 sm:px-4 flex-none"
-                  >
-                    <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                    <span>Back to editor</span>
-                  </Button>
-                </div>
-              )}
+              {/* Removed "Back to editor" button */}
 
               <TabsContent value="mindmap" className="min-h-[500px] sm:min-h-[600px]">
                 <div id="flow-chart-container">
