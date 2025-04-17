@@ -82,60 +82,60 @@ pnpm dev
 ## 📂 Project Structure
 ```
 viveflow/
-├── app/                     # Next.js app directory (App Router)
-│   ├── api/                 # Backend API routes
-│   │   ├── chat-response/   # AI chat endpoint
-│   │   ├── enhance-prompt/  # AI prompt enhancement endpoint
-│   │   └── process-idea/    # Framework generation endpoint
-│   ├── dashboard/           # Main app dashboard page
-│   ├── saved/               # Saved frameworks page
-│   ├── saved-ideas/         # Legacy saved ideas page
-│   ├── globals.css          # Global CSS styles
-│   ├── layout.tsx           # Root layout component
-│   └── page.tsx             # Landing page entry point
-├── components/              # React components
-│   ├── ui/                  # UI components (shadcn/ui)
-│   │   ├── button.tsx       # Button component
-│   │   ├── card.tsx         # Card component
-│   │   ├── textarea.tsx     # Textarea component
-│   │   ├── tabs.tsx         # Tabs component
-│   │   ├── toast.tsx        # Toast notification component
-│   │   └── ...              # Other UI components (45+ components)
-│   ├── magicui/             # Magic UI components
-│   ├── landing-page.tsx     # Landing page component
-│   ├── flow-chart.tsx       # Mind map wrapper component
-│   ├── reactflow-chart.tsx  # Mind map implementation
-│   ├── json-panel.tsx       # JSON view component
-│   ├── export-menu.tsx      # Export options component
-│   ├── chatbot.tsx          # AI chat interface component
-│   ├── ai-suggestions.tsx   # AI prompt enhancement component
-│   ├── detailed-framework-view.tsx # Detailed view of framework
-│   ├── error-boundary.tsx   # Error handling component
-│   ├── theme-provider.tsx   # Theme context provider
-│   └── theme-toggle.tsx     # Theme toggle component
-├── hooks/                   # Custom React hooks
-│   ├── use-toast.ts         # Toast notification hook
-│   └── use-mobile.tsx       # Mobile detection hook
-├── lib/                     # Utility functions
-│   └── utils.ts             # General utility functions
-├── styles/                  # Additional CSS styles
-├── types/                   # TypeScript type definitions
-│   ├── framework.ts         # Framework interface definitions
-│   ├── idea.ts              # Idea type definitions
-│   └── groq.d.ts            # Groq API type definitions
-├── public/                  # Static assets
-│   ├── images/              # Image assets
-│   └── ...                  # Other static files
-├── .env                     # Environment variables template
-├── .env.local               # Local environment variables
-├── .env.production          # Production environment variables
-├── next.config.js           # Next.js configuration
-├── next.config.mjs          # Next.js ESM configuration
-├── tailwind.config.ts       # Tailwind CSS configuration
-├── tsconfig.json            # TypeScript configuration
-├── postcss.config.mjs       # PostCSS configuration
-├── components.json          # shadcn/ui configuration
-└── package.json             # Node.js dependencies and scripts
+├── app/
+│   ├── api/
+│   │   ├── chat-response/
+│   │   ├── enhance-prompt/
+│   │   └── process-idea/
+│   ├── dashboard/
+│   ├── saved/
+│   ├── saved-ideas/
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── ui/
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── textarea.tsx
+│   │   ├── tabs.tsx
+│   │   ├── toast.tsx
+│   │   └── ...
+│   ├── magicui/
+│   ├── landing-page.tsx
+│   ├── flow-chart.tsx
+│   ├── reactflow-chart.tsx
+│   ├── json-panel.tsx
+│   ├── export-menu.tsx
+│   ├── chatbot.tsx
+│   ├── ai-suggestions.tsx
+│   ├── detailed-framework-view.tsx
+│   ├── error-boundary.tsx
+│   ├── theme-provider.tsx
+│   └── theme-toggle.tsx
+├── hooks/
+│   ├── use-toast.ts
+│   └── use-mobile.tsx
+├── lib/
+│   └── utils.ts
+├── styles/
+├── types/
+│   ├── framework.ts
+│   ├── idea.ts
+│   └── groq.d.ts
+├── public/
+│   ├── images/
+│   └── ...
+├── .env
+├── .env.local
+├── .env.production
+├── next.config.js
+├── next.config.mjs
+├── tailwind.config.ts
+├── tsconfig.json
+├── postcss.config.mjs
+├── components.json
+└── package.json
 ```
 
 ## 🧬 Future Scope
