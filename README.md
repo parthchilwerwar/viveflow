@@ -22,7 +22,7 @@ This project was created by **Parth Chilwerwar** as a solo endeavor. I built Viv
 - **@xyflow/react**: For creating interactive mind map visualizations
 - **lucide-react**: For modern SVG icons
 - **tailwindcss-animate**: For smooth UI animations
-- **radix-ui**: For accessible UI components
+- **radix-ui** , **magic ui**: For accessible UI components
 - **zod**: For data validation
 - **html2canvas**: For exporting mind maps as images
 
