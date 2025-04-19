@@ -48,8 +48,8 @@ This project was created by **Parth Chilwerwar** as a solo endeavor. I built Viv
 5. **Data Management**: The framework is automatically saved to local storage for future reference
 
 ## 📽️ Demo & Deliverables
-- Demo Video Link: [Coming Soon]
-- Pitch Deck Link: [Coming Soon]
+- Demo Video Link: https://youtu.be/7DlAOlfI68g?si=Ns_3J2uY7jwTfiqY
+- Ppt link : https://docs.google.com/presentation/d/1gVrYGiplBSKdx9AMd1w6YCocoQigDoXz/edit?usp=drive_link&ouid=105327939853406350095&rtpof=true&sd=true
 
 ## ✅ Tasks & Bonus Checklist
 - ✅ I completed the mandatory task
