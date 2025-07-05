@@ -158,8 +158,8 @@ export default function LandingPage() {
               </div>
               
               {/* Clean container for the image */}
-              <div className="relative bg-black/20 backdrop-filter backdrop-blur-sm rounded-xl p-4 sm:p-6 md:p-10 border border-white/10 shadow-xl overflow-hidden mt-16 sm:mt-[10rem]">
-                <div className="relative z-10 overflow-hidden" style={{ maxHeight: "600px" }}>
+              <div className="relative bg-black/20 backdrop-filter backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-10 border border-white/10 shadow-xl overflow-hidden mt-16 sm:mt-[10rem]">
+                <div className="relative z-10 overflow-hidden rounded-2xl" style={{ maxHeight: "600px" }}>
                   <Image 
                     src="/images/editor.png" 
                     alt="ViveFlow Framework Visualization" 

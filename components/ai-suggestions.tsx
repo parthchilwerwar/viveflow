@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
+import { FaArrowDown } from "react-icons/fa";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
 import { Lightbulb, RefreshCw, Sparkles, ArrowRight } from "lucide-react"
@@ -93,11 +94,6 @@ export default function PromptEnhancer({ originalPrompt, onEnhancedPrompt }: Pro
       <CardContent className="space-y-4">
         {!enhancedPrompt ? (
           <div className="flex flex-col items-center justify-center py-8 px-4 text-center">
-            <Lightbulb size={48} className="text-blue-400 mb-4 opacity-50" />
-            <h3 className="text-lg font-medium mb-2 text-white">Enhance your idea</h3>
-            <p className="text-gray-400 mb-6 max-w-md">
-              Turn your brief idea into a more detailed concept. Our AI will add structure and depth to your idea, making it easier to generate a comprehensive framework.
-            </p>
             {error && (
               <div className="text-red-400 mb-4 text-sm p-3 bg-red-900/30 border border-red-800 rounded-md max-w-md">
                 {error}
@@ -131,7 +127,7 @@ export default function PromptEnhancer({ originalPrompt, onEnhancedPrompt }: Pro
             </div>
             
             <div className="flex justify-center my-2">
-              <ArrowRight className="text-gray-400" />
+              <FaArrowDown  />
             </div>
             
             <div>
@@ -148,7 +144,7 @@ export default function PromptEnhancer({ originalPrompt, onEnhancedPrompt }: Pro
                 variant="outline"
                 onClick={() => setEnhancedPrompt("")}
                 size="sm"
-                className="border-gray-700 text-gray-300 hover:bg-gray-800"
+                className="border-gray-700 text-black bg-white hover:bg-gray-300"
               >
                 Reset
               </Button>

@@ -1,5 +1,5 @@
 # 🚀 ViveFlow
-Transform your ideas into actionable frameworks with interactive mind maps.
+*AI-powered: Turn your ideas into interactive mind maps and actionable frameworks.*
 
 ## 📌 Problem Statement
 Problem Statement 1 - Weave AI magic with Groq
