@@ -2,10 +2,9 @@
 
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
-import { FaArrowDown } from "react-icons/fa";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
-import { Lightbulb, RefreshCw, Sparkles, ArrowRight } from "lucide-react"
+import { Lightbulb, RefreshCw, Sparkles , ArrowDown } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 
 interface PromptEnhancerProps {
@@ -127,7 +126,7 @@ export default function PromptEnhancer({ originalPrompt, onEnhancedPrompt }: Pro
             </div>
             
             <div className="flex justify-center my-2">
-              <FaArrowDown  />
+              <ArrowDown />
             </div>
             
             <div>
